@@ -1,6 +1,6 @@
-import "dotenv/config";
 import dotenv from "dotenv";
-dotenv.config();
+import path from "path";
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 import express from "express";
 import cors from "cors";
@@ -12,15 +12,13 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Main route");
+  res.send("main route is healthy")
 });
-
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", channelRoutes);
 app.use("/api/v1", messageRoutes);
-const PORT = 3000;
-
-app.listen(process.env.PORT, () => {
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
 
